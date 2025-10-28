@@ -2,84 +2,227 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BrowserWorks — Your Extensions Are Covered</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BrowserWorks — Chrome Extensions that save time</title>
+  <meta name="description" content="BrowserWorks builds and sells productivity Chrome extensions: PromptScribe (prompt rewriter), YouTube Transcript & Summary, and Recipe Builder from YouTube.">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    :root{
+      --primary:#4f46e5;
+      --primary-2:#3b82f6;
+      --bg: linear-gradient(135deg, var(--primary), var(--primary-2));
+      --card: rgba(255,255,255,0.1);
+      --text:#fff;
+      --ink:#0f172a;
+      --muted: rgba(255,255,255,.85);
+      --ring: rgba(59,130,246,.35);
     }
-
-    body {
-      background: linear-gradient(135deg, #4f46e5, #3b82f6);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height:1.55;
     }
-
-    header {
-      margin-bottom: 1.5rem;
+    .container{max-width:1100px;margin-inline:auto;padding:28px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+    .logo{width:32px;height:32px;border-radius:10px;background:#fff;display:grid;place-items:center;color:var(--primary)}
+    nav a{color:#fff;text-decoration:none;margin-left:18px;opacity:.9}
+    nav a:hover{opacity:1;text-decoration:underline}
+    .hero{
+      text-align:center;padding:56px 20px;border-radius:24px;background:radial-gradient(1200px 400px at 50% -100px, rgba(255,255,255,.25), transparent), var(--bg);
+      box-shadow:0 20px 60px rgba(0,0,0,.25);
+      margin-bottom:36px;
     }
-
-    h1 {
-      font-size: 3rem;
-      letter-spacing: 1px;
+    h1{font-size:clamp(28px,4vw,48px);letter-spacing:.3px}
+    .hero p{font-size:clamp(15px,2.2vw,18px);opacity:.92;margin-top:8px}
+    .badges{display:flex;justify-content:center;gap:12px;margin-top:20px;flex-wrap:wrap}
+    .badge{background:#ffffff; color:#1f2937; padding:8px 12px; border-radius:999px; font-weight:600; box-shadow:0 6px 20px rgba(0,0,0,.15)}
+    .cta{display:inline-block;margin-top:20px;background:#fff;color:#2563eb;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:700}
+    .cta:hover{background:#2563eb;color:#fff;box-shadow:0 6px 20px rgba(0,0,0,.25);transform:translateY(-1px);transition:.2s}
+    /* Sections */
+    section{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:24px;margin-bottom:28px;backdrop-filter: blur(6px)}
+    section h2{font-size:clamp(22px,2.6vw,28px);margin-bottom:10px}
+    section p.lead{opacity:.92;margin-bottom:10px}
+    /* Product cards */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.25);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px}
+    .card h3{font-size:20px}
+    .pill{display:inline-block;background:rgba(255,255,255,.9);color:#1f2937;border-radius:999px;padding:4px 10px;font-weight:700;font-size:13px}
+    .price{font-weight:800;font-size:18px;margin-top:4px}
+    .card ul{margin-left:18px}
+    .card a{align-self:flex-start}
+    .thumb{width:100%;height:140px;border-radius:12px;background:linear-gradient(145deg, rgba(255,255,255,.5), rgba(255,255,255,.05));
+      display:grid;place-items:center;color:#111;font-weight:700}
+    /* Tables/Lists */
+    .list{display:grid;gap:8px;margin-top:8px}
+    .list div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);padding:10px;border-radius:12px}
+    .muted{opacity:.85}
+    /* Footer */
+    footer{opacity:.9;text-align:center;margin:26px 0}
+    footer a{color:#fff}
+    .legal small{display:block;opacity:.85;margin-top:6px}
+    /* Responsive */
+    @media (max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){
+      header{flex-direction:column;align-items:flex-start}
+      .grid{grid-template-columns:1fr}
+      nav{display:flex;flex-wrap:wrap;gap:8px}
     }
-
-    p {
-      font-size: 1.2rem;
-      margin-top: 0.5rem;
-      opacity: 0.9;
-    }
-
-    a.button {
-      display: inline-block;
-      margin-top: 2rem;
-      background: #fff;
-      color: #2563eb;
-      padding: 0.8rem 1.8rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
-
-    a.button:hover {
-      background: #2563eb;
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    footer {
-      position: absolute;
-      bottom: 1rem;
-      font-size: 0.9rem;
-      opacity: 0.7;
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 2.2rem; }
-      p { font-size: 1rem; }
-    }
+    /* Focus */
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{outline:3px solid var(--ring); outline-offset:2px;border-radius:8px}
   </style>
 </head>
 <body>
-  <header>
-    <h1>BrowserWorks</h1>
-    <p>Your extensions are covered.</p>
-  </header>
+  <div class="container">
+    <!-- Top -->
+    <header>
+      <a class="brand" href="#top" aria-label="BrowserWorks home">
+        <span class="logo">BW</span>
+        <strong>BrowserWorks</strong>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#products">Products</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#support">Support</a>
+        <a href="#policies">Policies</a>
+      </nav>
+    </header>
 
-  <a href="#" class="button">Learn More</a>
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <h1>We build & sell our own Chrome extensions</h1>
+      <p>Privacy-respecting tools to supercharge your browsing. No marketplaces, no third-party sellers — just our software, maintained and supported by us.</p>
+      <div class="badges">
+        <span class="badge">Made in India</span>
+        <span class="badge">Secure Checkout (Stripe)</span>
+        <span class="badge">7-day refund</span>
+        <span class="badge">Email Support</span>
+      </div>
+      <a href="#products" class="cta">View Products</a>
+    </section>
 
-  <footer>
-    © 2025 BrowserWorks. All rights reserved.
-  </footer>
+    <!-- Products -->
+    <section id="products" aria-labelledby="products-title">
+      <h2 id="products-title">Products</h2>
+      <p class="lead">Three lightweight extensions. Clear pricing, instant delivery, and helpful support.</p>
+
+      <div class="grid" role="list">
+        <!-- PromptScribe -->
+        <article class="card" role="listitem" aria-labelledby="ps-title">
+          <div class="thumb" aria-hidden="true">PromptScribe</div>
+          <h3 id="ps-title">PromptScribe — Prompt Rewriter</h3>
+          <span class="pill">New</span>
+          <p>Write better prompts in less time. Describe your goal; PromptScribe rewrites the prompt with role, tone, and constraints tailored to your use-case.</p>
+          <ul>
+            <li>One-click prompt improvements (clarity, tone, persona)</li>
+            <li>Works on popular AI chat sites</li>
+            <li>No data sold; minimal permissions</li>
+          </ul>
+          <div class="price">₹399 one-time • ₹99/month Pro (optional)</div>
+          <a class="cta" href="https://chrome.google.com/webstore/detail/promptscribe-<REPLACE>" target="_blank" rel="noopener">Get on Chrome Web Store</a>
+        </article>
+
+        <!-- YouTube Transcript & Summary -->
+        <article class="card" role="listitem" aria-labelledby="yt-title">
+          <div class="thumb" aria-hidden="true">YT Transcript & Summary</div>
+          <h3 id="yt-title">YouTube Transcript & Summary Generator</h3>
+          <p>Extract transcripts from YouTube videos instantly and generate concise summaries for quick understanding.</p>
+          <ul>
+            <li>One-click transcript copy & export</li>
+            <li>Automatic TL;DR and key points</li>
+            <li>Keyboard shortcut & dark mode</li>
+          </ul>
+          <div class="price">₹299 one-time</div>
+          <a class="cta" href="https://chrome.google.com/webstore/detail/youtube-transcript-summary-<REPLACE>" target="_blank" rel="noopener">Get on Chrome Web Store</a>
+        </article>
+
+        <!-- Recipe Builder from YouTube -->
+        <article class="card" role="listitem" aria-labelledby="rcp-title">
+          <div class="thumb" aria-hidden="true">Recipe from YouTube</div>
+          <h3 id="rcp-title">Cooking Recipe Generator (from YouTube)</h3>
+          <p>Turn any cooking video into a clean, step-by-step recipe with ingredients, timings, and substitutions.</p>
+          <ul>
+            <li>Auto-detects servings & prep time</li>
+            <li>Download or print recipe card</li>
+            <li>Works on most food channels</li>
+          </ul>
+          <div class="price">₹199 one-time</div>
+          <a class="cta" href="https://chrome.google.com/webstore/detail/recipe-from-youtube-<REPLACE>" target="_blank" rel="noopener">Get on Chrome Web Store</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" aria-labelledby="pricing-title">
+      <h2 id="pricing-title">Pricing & delivery</h2>
+      <div class="list">
+        <div><strong>Payment methods:</strong> Cards, UPI and other methods via Stripe.</div>
+        <div><strong>Delivery:</strong> After purchase you receive a license/activation email and unlock premium features inside the extension.</div>
+        <div><strong>Taxes:</strong> Prices include applicable taxes for India. <em>GSTIN:</em> <span class="muted">REPLACE-GSTIN</span></div>
+        <div><strong>Company:</strong> BrowserWorks (sole proprietorship). Bengaluru, Karnataka, India.</div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how-it-works" aria-labelledby="how-title">
+      <h2 id="how-title">How it works</h2>
+      <ol class="list" style="list-style: decimal inside;">
+        <li>Install from the Chrome Web Store (links above).</li>
+        <li>Choose Free or upgrade to Premium at checkout (Stripe).</li>
+        <li>Check your email for the license key and activation steps.</li>
+        <li>Use the in-extension “Support” link if you need help.</li>
+      </ol>
+    </section>
+
+    <!-- Support -->
+    <section id="support" aria-labelledby="support-title">
+      <h2 id="support-title">Support</h2>
+      <p class="lead">We provide email support within 1–2 business days.</p>
+      <div class="list">
+        <div><strong>Email:</strong> <a href="mailto:support@browserworks.app">support@browserworks.app</a></div>
+        <div><strong>Business hours:</strong> Mon–Fri, 10:00–18:00 IST</div>
+        <div><strong>Address:</strong> Bengaluru, Karnataka, India (full address available on invoice)</div>
+      </div>
+    </section>
+
+    <!-- Policies -->
+    <section id="policies" aria-labelledby="policies-title">
+      <h2 id="policies-title">Policies</h2>
+      <div class="list legal">
+        <div>
+          <strong>Refund Policy</strong>
+          <small>7-day money-back guarantee on new purchases. If the product doesn’t work as described, email support@browserworks.app with your order ID within 7 days and we’ll refund to the original payment method.</small>
+        </div>
+        <div>
+          <strong>Privacy</strong>
+          <small>We collect only the information necessary to provide the service (e.g., license status and basic telemetry). We do not sell personal data. Some extensions request minimal Chrome permissions strictly required for their features. See each Web Store listing for the exact permissions.</small>
+        </div>
+        <div>
+          <strong>Terms of Use</strong>
+          <small>Licenses are for individual use. Reverse-engineering, reselling, or distributing our products is prohibited. Extensions must not be used to violate platform terms or applicable laws.</small>
+        </div>
+        <div>
+          <strong>Security</strong>
+          <small>Payments are processed securely by Stripe. We never store full card details on our servers.</small>
+        </div>
+        <div>
+          <strong>Compliance Statement</strong>
+          <small>BrowserWorks directly develops and distributes its own software products. We are not a marketplace and do not process payments for third-party sellers or user-generated content platforms.</small>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> BrowserWorks. All rights reserved.</div>
+      <div class="muted">This site is for information and purchasing of BrowserWorks’ own Chrome extensions.</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
